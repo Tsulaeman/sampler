@@ -32,7 +32,7 @@ class BookFactory extends Factory
         return [
             'title' => $this->faker->sentence(4),
             'isbn' => $this->faker->randomElement(self::ISBNS),
-            'published_at' => $this->faker->dateTimeBetween('1980-01-01', '2010-12-31')->format('YYYY-MM-DD'),
+            'published_at' => $this->faker->dateTimeBetween('1980-01-01', '2010-12-31')->format('Y-m-d'),
             'status' => 'AVAILABLE',
         ];
     }

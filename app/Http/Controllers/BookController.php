@@ -76,10 +76,10 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'string|lt:255',
-            'isbn' => '',
-            'published_at' => 'date',
-            'status' => ''
+            'title' => 'string|max:255',
+            // 'isbn' => 'required',
+            'published_at' => 'date_format:Y-m-d',
+            'status' => 'in:'. implode(',', [Book::AVAILABLE, Book::CHECKED_OUT]),
         ]);
 
         $book = Book::findOrFail($id);

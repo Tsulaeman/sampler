@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'date_of_birth' => $this->faker->dateTimeBetween('1980-01-01', '2010-12-31')->format('YYYY-MM-DD'),
+            'date_of_birth' => $this->faker->dateTimeBetween('1980-01-01', '2010-12-31')->format('Y-m-d'),
         ];
     }
 }
