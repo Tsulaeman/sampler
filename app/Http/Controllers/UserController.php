@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -45,7 +47,10 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'string|max:255',
-            'email' => 'email',
+            'email' => [
+                'email',
+                Rule::unique('users')->ignore(Auth::user()),
+            ],
             'date_of_birth' => 'format_date:Y-m-d',
             'password' => [
                 'min:8',

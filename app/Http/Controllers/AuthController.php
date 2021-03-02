@@ -13,7 +13,7 @@ class AuthController extends Controller
         $data = $request->validate(
             [
                     'name' => 'required|string|max:255',
-                    'email' => 'required|string|email',
+                    'email' => 'required|string|email|unique:users',
                     'password' => [
                         'min:8',
                         'regex:/^(?=.*[0-9])(?=.*[A-Z])([a-zA-Z0-9]+)$/',
