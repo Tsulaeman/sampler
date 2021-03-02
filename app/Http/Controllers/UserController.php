@@ -47,7 +47,13 @@ class UserController extends Controller
             'name' => 'string|max:255',
             'email' => 'email',
             'date_of_birth' => 'format_date:Y-m-d',
-            'password' => 'min:8',
+            'password' => [
+                'min:8',
+                'regex:/^(?=.*[0-9])(?=.*[A-Z])([a-zA-Z0-9]+)$/',
+                'max:255'
+            ], [
+                'password.regex' => 'Password must contain atleast one number and one uppercase letter'
+            ]
         ]);
 
         $user->fill($request->all());

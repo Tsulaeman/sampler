@@ -10,12 +10,21 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email',
-            'password' => 'required|string|max:255|min:8',
-            'date_of_birth' => 'required|date_format:Y-m-d'
-        ]);
+        $data = $request->validate(
+            [
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|string|email',
+                    'password' => [
+                        'min:8',
+                        'regex:/^(?=.*[0-9])(?=.*[A-Z])([a-zA-Z0-9]+)$/',
+                        'max:255'
+                    ],
+                    'date_of_birth' => 'required|date_format:Y-m-d'
+                ],
+            [
+                    'password.regex' => 'Password must contain atleast 1 number and 1 uppercase letter'
+                ]
+        );
 
         $data['password'] = bcrypt($data['password']);
 
@@ -32,7 +41,7 @@ class AuthController extends Controller
     {
         $loginData = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:8'
+            'password' => 'required'
         ]);
 
         if (!Auth::attempt($loginData)) {

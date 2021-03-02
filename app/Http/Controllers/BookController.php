@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\UserActionLog;
+use App\Rules\ISBN;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,7 @@ class BookController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'isbn' => 'required',
+            'isbn' => ['required', new ISBN],
             'published_at' => 'required|date_format:Y-m-d',
             'status' => 'required|in:'. implode(',', [Book::AVAILABLE, Book::CHECKED_OUT]),
         ]);
@@ -77,7 +78,7 @@ class BookController extends Controller
     {
         $request->validate([
             'title' => 'string|max:255',
-            // 'isbn' => 'required',
+            'isbn' => [new ISBN],
             'published_at' => 'date_format:Y-m-d',
             'status' => 'in:'. implode(',', [Book::AVAILABLE, Book::CHECKED_OUT]),
         ]);
@@ -85,6 +86,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $book->fill($request->all());
         $book->save();
+
 
         return response([
             'message' => "Book: $book->title updated successfully",
@@ -136,7 +138,7 @@ class BookController extends Controller
         $userAction->save();
 
         return response([
-            'message' => "Book: $book->name was checked in successfully"
+            'message' => "Book: ( $book->title ) was checked in successfully"
         ]);
     }
 
@@ -162,7 +164,7 @@ class BookController extends Controller
         $userAction->save();
 
         return response([
-            'message' => "Book: $book->name was checked out successfully"
+            'message' => "Book:( $book->title ) was checked out successfully"
         ]);
     }
 }

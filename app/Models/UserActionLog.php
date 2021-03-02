@@ -11,6 +11,8 @@ class UserActionLog extends Model
 
     const CHECKIN = "CHECKIN";
     const CHECKOUT = "CHECKOUT";
+    protected $fillable = ['book_id', 'user_id', 'action'];
+    protected $appends = ['book_title', 'user_name'];
 
     public function book()
     {
@@ -20,5 +22,15 @@ class UserActionLog extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getBookTitleAttribute()
+    {
+        return $this->book()->first()->title;
+    }
+
+    public function getUserNameAttribute()
+    {
+        return $this->user()->first()->name;
     }
 }
