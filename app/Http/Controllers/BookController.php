@@ -123,7 +123,8 @@ class BookController extends Controller
 
         if ($book->status === Book::AVAILABLE) {
             return response([
-                'message' => 'This book has already been checked in.'
+                'message' => 'This book has already been checked in.',
+                'book' => $book
             ], 422);
         }
 
@@ -138,7 +139,8 @@ class BookController extends Controller
         $userAction->save();
 
         return response([
-            'message' => "Book: ( $book->title ) was checked in successfully"
+            'message' => 'Book checked in successfully',
+            'book' => $book
         ]);
     }
 
@@ -149,7 +151,8 @@ class BookController extends Controller
 
         if ($book->status === Book::CHECKED_OUT) {
             return response([
-                'message' => 'This book has already been checked out.'
+                'message' => 'This book has already been checked out.',
+                'book' => $book
             ], 422);
         }
 
@@ -164,7 +167,8 @@ class BookController extends Controller
         $userAction->save();
 
         return response([
-            'message' => "Book:( $book->title ) was checked out successfully"
+            'message' => "Book checked out successfully",
+            'book' => $book
         ]);
     }
 }
