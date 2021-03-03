@@ -43,7 +43,8 @@ class BookController extends Controller
             $book->fill($request->all());
             $book->save();
             return response([
-                'message' => "Book: $book->title, was successfully created."
+                'message' => 'The book was successfully created.',
+                'book' => $book
             ]);
         } catch (Exception $e) {
             return response([
@@ -89,7 +90,7 @@ class BookController extends Controller
 
 
         return response([
-            'message' => "Book: $book->title updated successfully",
+            'message' => "The book was updated successfully",
             'book' => $book
         ]);
     }

@@ -4,7 +4,7 @@ cd into the app root and run the following in order; <br/>
 `php artisan migrate` <br/>
 `php artisan passport:install` <br/>
 `php artisan passport:client --personal` <br/>
-`php artisan seed` <br/>
+`php artisan db:seed` <br/>
 `php artisan serve`
 
 Now you app should have started.
